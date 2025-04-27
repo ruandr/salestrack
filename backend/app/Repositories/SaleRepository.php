@@ -21,7 +21,8 @@ class SaleRepository
     public function getAll(array $filters = [], int $perPage = 15): LengthAwarePaginator
     {
         $query = Sale::query();
-    
+        $query->join('sellers', 'sellers.id', 'sales.seller_id');
+        $query->select('sales.*', 'sellers.name');
         if (isset($filters['seller_id'])) {
             $query->where('seller_id', $filters['seller_id']);
         }

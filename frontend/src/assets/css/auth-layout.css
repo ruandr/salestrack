@@ -1,0 +1,19 @@
+.auth-layout {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f6fa;
+    font-family: 'Inter', sans-serif;
+    padding: 2rem;
+  }
+  
+  .auth-content {
+    background: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+  
