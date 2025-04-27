@@ -1,0 +1,40 @@
+FROM php:8.3-fpm
+
+# Instalar dependências do cron e o Laravel
+RUN apt-get update && apt-get install -y \
+    cron \
+    git \
+    curl \
+    libzip-dev \
+    unzip \
+    zip \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libpq-dev \
+    libcurl4-openssl-dev \
+    procps \
+    && docker-php-ext-install pdo pdo_mysql zip
+# Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Definir diretório de trabalho
+WORKDIR /var/www
+
+# Copiar o código da aplicação
+COPY backend ./ 
+
+# Instalar dependências do Composer
+RUN composer install --no-dev --optimize-autoloader
+
+# Copiar o arquivo de cron para o contêiner
+COPY ./docker/cron/schedule-cronfile /etc/cron.d/schedule-cronfile
+
+# Dar permissão ao arquivo de cron
+RUN chmod 0644 /etc/cron.d/schedule-cronfile
+
+# Atualizar as permissões para o diretório do cron
+RUN crontab /etc/cron.d/schedule-cronfile
+
+# Iniciar cron em segundo plano
+CMD ["cron", "-f"]
