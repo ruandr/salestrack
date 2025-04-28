@@ -47,4 +47,4 @@
   });
   </script>
   
-  <style scoped src="@/assets/css/default   -layout.css"></style>
+  <style scoped src="@/assets/css/default-layout.css"></style>
