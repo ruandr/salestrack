@@ -48,16 +48,10 @@ php artisan migrate --seed
 - Existe um container cron responsável pelo agendamento de tarefas diárias (envio de e-mails automáticos).
 
 - Tecnologias Utilizadas
-- - Laravel
-
-- - Vue.js (com TypeScript)
-
-- - Pinia (gerenciamento de estado)
-
-- - MySQL
-
-- - TailwindCSS
-
-- - Docker
-
-- - Axios
+    - Laravel
+    - Vue.js (com TypeScript)
+    - Pinia (gerenciamento de estado)
+    - MySQL
+    - TailwindCSS
+    - Docker
+    - Axios
