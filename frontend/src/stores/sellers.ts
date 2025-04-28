@@ -40,7 +40,7 @@ export const useSellersStore = defineStore('sellers', () => {
     }
   }
 
-  async function createSeller(sellerData: { name: string; email: string; sale_date: string }) {
+  async function createSeller(sellerData: { name: string; email: string; }) {
     try {
       const response = await api.post('/sellers', sellerData);
       sellers.value.push(response.data.data);

@@ -3,12 +3,12 @@ version: '3.8'
 services:
   app:
     build:
-      context: . 
-      dockerfile: ./docker/php/Dockerfile 
+      context: .
+      dockerfile: ./docker/php/Dockerfile
     container_name: salestrack-app
     working_dir: /var/www
     volumes:
-      - ./backend:/var/www 
+      - ./backend:/var/www
     networks:
       - salestrack
     depends_on:
@@ -17,16 +17,19 @@ services:
       - "8000:8000"
 
   frontend:
-    image: node:20
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
     container_name: salestrack-frontend
     working_dir: /app
     volumes:
       - ./frontend:/app
-    command: sh -c "npm install && npm run dev"
     ports:
-      - "5173:5173"
+      - "8080:8080"
     networks:
       - salestrack
+    depends_on:
+      - app
 
   nginx:
     image: nginx:alpine
@@ -56,6 +59,21 @@ services:
     networks:
       - salestrack
 
+  artisan:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: salestrack-artisan
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    entrypoint: [ "php", "artisan", "migrate:fresh", "--seed" ]
+    depends_on:
+      - app
+      - db
+    networks:
+      - salestrack
+
   mailhog:
     image: mailhog/mailhog
     container_name: salestrack-mailhog
@@ -76,10 +94,11 @@ services:
       - salestrack
     depends_on:
       - db
-    entrypoint: ["cron", "-f"]
+    entrypoint: [ "cron", "-f" ]
 
 networks:
   salestrack:
+
 
 volumes:
   dbdata:

@@ -7,10 +7,10 @@
           <input type="email" v-model="email" id="email" required />
         </div>
         <div class="form-group">
-          <label for="password">Password:</label>
+          <label for="password">Senha:</label>
           <input type="password" v-model="password" id="password" required />
         </div>
-        <button type="submit" :disabled="loading">Login</button>
+        <button type="submit" :disabled="loading">Entrar</button>
       </form>
     </div>
   </template>
@@ -49,13 +49,16 @@
     margin: 10vh auto;
     padding: 2rem;
     background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   
   h1 {
-    text-align: center;
-    margin-bottom: 20px;
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
   }
   
   .form-group {
@@ -71,33 +74,41 @@
   
   input {
     width: 100%;
-    padding: 12px;
+    padding: 14px; 
     margin: 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    border-radius: 8px; 
+    border: 1px solid #d1d5db;
     font-size: 1rem;
-    box-sizing: border-box; /* Ensures padding doesn't increase input width */
+    color: #1e293b;
+    background-color: #f9fafb;
+    transition: border-color 0.3s ease-in-out;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #4c8bf5;
   }
   
   button {
     width: 100%;
-    padding: 12px;
-    background-color: #1e293b;
+    padding: 14px;
+    background-color: #4c8bf5;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1rem;
-    box-sizing: border-box; /* Ensures padding doesn't increase button width */
+    font-size: 1.1rem;
     transition: background-color 0.3s ease;
+    box-sizing: border-box;
   }
   
   button:hover {
-    background-color: #334155;
+    background-color: #3b7ce0;
   }
   
   button:disabled {
-    background-color: #ccc;
+    background-color: #d1d5db;
     cursor: not-allowed;
   }
   </style>

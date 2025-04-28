@@ -1,46 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SaleView from '@/views/SaleView.vue'
+import { useAuthStore } from '@/stores/auth'
 import LoginView from '@/views/LoginView.vue'
-import SellersView from '@/views/SellersView.vue'
+import SaleView from '@/views/SaleView.vue'
+
+const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView,
+  },
+  {
+    path: '/sales',
+    name: 'sales',
+    component: SaleView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/login',
+  }
+]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/sales',
-      name: 'sales',
-      component: SaleView,
-    },
-    {
-      path: '/sellers',
-      name: 'Sellers',
-      component: SellersView,
-    },
-    {
-      path: '/',
-      name: 'login',
-      component: LoginView
-    },
-    {
-      path: '/logout',
-      name: 'logout',
-      beforeEnter: (to, from, next) => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        next({ name: 'login' });
-      }
-    }
-  ],
+  history: createWebHistory(),
+  routes,
 })
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token');
+  const auth = useAuthStore()
 
-  if (to.name !== 'login' && to.name !== 'logout' && !token) {
-    next({ name: 'login' });
+  if (to.meta.requiresAuth && !auth.token) {
+    next({ name: 'login' })
   } else {
-    next(); 
+    next()
   }
-});
+})
 
 export default router

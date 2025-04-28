@@ -41,7 +41,7 @@
   import { useSellersStore } from '@/stores/sellers';
   import LayoutDefault from '@/layouts/LayoutDefault.vue';
   import CreateSeller from '@/components/CreateSeller.vue';
-  import Pagination from '@/components/Pagination.vue'; // Importando o componente Pagination
+  import Pagination from '@/components/Pagination.vue';
   
   export default defineComponent({
     name: 'SellersView',
@@ -52,10 +52,9 @@
     },
     setup() {
       const sellersStore = useSellersStore();
-      const isLoading = computed(() => sellersStore.isLoading);
+      const isLoading = ref(false);
       const sellers = computed(() => sellersStore.sellers);
       
-      // Usar currentPage e totalPages diretamente do store
       const currentPage = computed(() => sellersStore.currentPage);
       const totalPages = computed(() => sellersStore.totalPages);
   

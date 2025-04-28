@@ -3,10 +3,8 @@
       <div class="modal-content">
         <h2>Criar Nova Venda</h2>
   
-        <!-- Seletor de vendedor -->
         <SelectSeller v-model:sellerId="sellerId" />
   
-        <!-- Campo para valor da venda -->
         <input
           type="number"
           v-model="amount"
@@ -14,7 +12,6 @@
           class="input"
         />
   
-        <!-- Campo para a data da venda -->
         <input
           type="date"
           v-model="saleDate"
@@ -54,7 +51,7 @@
   
       const sellerId = ref<number | null>(null);
       const amount = ref<number | null>(null);
-      const saleDate = ref<string>('');  // Novo campo para a data da venda
+      const saleDate = ref<string>('');
   
       const createSale = async () => {
         if (!sellerId.value || !amount.value || !saleDate.value) {
@@ -66,11 +63,11 @@
           await salesStore.createSale({
             seller_id: sellerId.value,
             amount: amount.value,
-            sale_date: saleDate.value,  // Passando a data da venda
+            sale_date: saleDate.value,
           });
   
           toast.success('Venda criada com sucesso!');
-          emit('created'); // Disparar evento para recarregar a lista
+          emit('created');
           closeModal();
         } catch (error) {
           toast.error('Erro ao criar a venda.');
@@ -81,13 +78,13 @@
         emit('close');
         sellerId.value = null;
         amount.value = null;
-        saleDate.value = '';  // Limpar o campo de data
+        saleDate.value = '';
       };
   
       return {
         sellerId,
         amount,
-        saleDate,  // Expondo o campo de data da venda
+        saleDate,
         createSale,
         closeModal,
       };

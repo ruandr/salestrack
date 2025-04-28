@@ -3,10 +3,7 @@
         <div class="modal-content">
             <h2>Criar Novo Vendedor</h2>
 
-            <!-- Input para Nome -->
             <input v-model="name" type="text" placeholder="Nome do vendedor" class="input" />
-
-            <!-- Input para Email -->
             <input v-model="email" type="email" placeholder="Email do vendedor" class="input" />
 
             <div class="button-group">

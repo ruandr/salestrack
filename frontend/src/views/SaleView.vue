@@ -48,6 +48,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue';
+import { useToast } from 'vue-toastification';
+import axios from 'axios';
 import { useSalesStore } from '@/stores/sales';
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import SelectSeller from '@/components/SelectSeller.vue';
@@ -63,6 +65,7 @@ export default defineComponent({
         Pagination,
     },
     setup() {
+        const toast = useToast();
         const salesStore = useSalesStore();
         const currentPage = ref(1);
         const totalPages = ref(1);
@@ -94,8 +97,8 @@ export default defineComponent({
                 totalPages.value = salesStore.totalPages;
             } catch (error) {
                 console.error('Erro ao buscar vendas:', error);
-                if (error.response && error.response.status === 401) {
-                    alert('Sessão expirada. Por favor, faça login novamente.');
+                if (axios.isAxiosError(error) && error.response?.status === 401) {
+                    toast.error('Sessão expirada. Por favor, faça login novamente.');
                 }
             }
         };
@@ -106,15 +109,15 @@ export default defineComponent({
             }
         };
 
-        const formatCurrency = (value: string) => {
+        const formatCurrency = (value: number) => {
             return new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
-            }).format(parseFloat(value));
+            }).format(value);
         };
 
         const formatDate = (date: string) => {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
             return new Date(date).toLocaleDateString('pt-BR', options);
         };
 

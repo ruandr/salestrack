@@ -3,17 +3,65 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f5f6fa;
+    background: #e5e7eb;
     font-family: 'Inter', sans-serif;
     padding: 2rem;
   }
   
   .auth-content {
     background: #ffffff;
-    padding: 3rem 2rem;
-    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    border-radius: 12px; 
     width: 100%;
     max-width: 420px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #d1d5db;
+  }
+  
+  .auth-content h2 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+  }
+  
+  .auth-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    color: #1e293b;
+    background-color: #f9fafb;
+  }
+  
+  .auth-content input:focus {
+    outline: none;
+    border-color: #4c8bf5;
+  }
+  
+  .auth-content button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+    background-color: #4c8bf5;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .auth-content button:hover {
+    background-color: #3b7ce0;
+  }
+  
+  .auth-content .cancel-button {
+    background-color: #f44336;
+  }
+  
+  .auth-content .cancel-button:hover {
+    background-color: #e53935;
   }
   

@@ -7,7 +7,7 @@
   </template>
   
   <script lang="ts">
-  import { defineComponent, computed, PropType } from 'vue';
+  import { defineComponent, computed } from 'vue';
   
   export default defineComponent({
     name: 'Pagination',

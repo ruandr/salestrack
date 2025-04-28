@@ -2,35 +2,50 @@ import { defineStore } from 'pinia'
 import api from '@/utils/axios'
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
   const toast = useToast()
   const router = useRouter()
 
+  const token = ref<string | null>(localStorage.getItem('token'))
+  const user = ref<any>(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null)
+
+  // Se existir token no carregamento, define no axios
+  if (token.value) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token.value}`
+  }
+
   const login = async (email: string, password: string) => {
     try {
-      const response = await api.post('/auth/login', {
-        email,
-        password,
-      })
+      const response = await api.post('/auth/login', { email, password })
 
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+      token.value = response.data.token
+      user.value = response.data.user
 
-      toast.success('Login realizado com sucesso!')
-      router.push({ name: 'sales' })
+      localStorage.setItem('token', token.value)
+      localStorage.setItem('user', JSON.stringify(user.value))
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token.value}`
+
+      await router.push({ name: 'sales' }) 
     } catch (err) {
       toast.error('Credenciais inválidas, tente novamente.')
       throw err
     }
   }
 
-  const logout = () => {
+  const logout = async () => {
+    token.value = null
+    user.value = null
+
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    toast.info('Você saiu do sistema.')
-    router.push({ name: 'login' })
+
+    delete api.defaults.headers.common['Authorization']
+
+    await router.push({ name: 'login' })
   }
 
-  return { login, logout }
+  return { token, user, login, logout }
 })
