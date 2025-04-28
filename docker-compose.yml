@@ -3,12 +3,12 @@ version: '3.8'
 services:
   app:
     build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
+      context: . 
+      dockerfile: ./docker/php/Dockerfile 
     container_name: salestrack-app
     working_dir: /var/www
     volumes:
-      - ./backend:/var/www
+      - ./backend:/var/www 
     networks:
       - salestrack
     depends_on:
@@ -19,7 +19,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: ./docker/frontend/Dockerfile
+      dockerfile: ./docker/frontend/Dockerfile 
     container_name: salestrack-frontend
     working_dir: /app
     volumes:
@@ -59,21 +59,6 @@ services:
     networks:
       - salestrack
 
-  artisan:
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    container_name: salestrack-artisan
-    working_dir: /var/www
-    volumes:
-      - ./backend:/var/www
-    entrypoint: [ "php", "artisan", "migrate:fresh", "--seed" ]
-    depends_on:
-      - app
-      - db
-    networks:
-      - salestrack
-
   mailhog:
     image: mailhog/mailhog
     container_name: salestrack-mailhog
@@ -94,11 +79,10 @@ services:
       - salestrack
     depends_on:
       - db
-    entrypoint: [ "cron", "-f" ]
+    entrypoint: ["cron", "-f"]
 
 networks:
   salestrack:
-
 
 volumes:
   dbdata:

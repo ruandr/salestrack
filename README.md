@@ -11,8 +11,8 @@ Sistema de cadastro de vendedores e vendas, com cálculo de comissões e envio d
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/ruandr/salestrack
+cd salestrack
 ```
 
 2. Suba os containers:
@@ -48,10 +48,15 @@ php artisan migrate --seed
 - Existe um container cron responsável pelo agendamento de tarefas diárias (envio de e-mails automáticos).
 
 - Tecnologias Utilizadas
-    - Laravel
-    - Vue.js (com TypeScript)
-    - Pinia (gerenciamento de estado)
-    - MySQL
-    - TailwindCSS
-    - Docker
-    - Axios
+ - Laravel
+ - Vue.js (com TypeScript)
+ - Pinia (gerenciamento de estado)
+ - MySQL
+ - TailwindCSS
+ - Docker
+ - Axios
+
+## Para testes
+- Usuário e senha padrão
+ - Usuário: admin@mail.com
+ - Senha: password
